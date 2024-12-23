@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+CO+Guides&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+        .container{
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 140px;
+            margin-left:600px;
+            padding-top: 10px;
+            backdrop-filter: blur(15px);
+            border: 7px solid #d70202;
+            box-shadow: 0 0 1px #d70202, 0 0 2px #d70202, 0 0 6px #d70202, 0 0 12px #000,inset 0 0 1px #d70202, inset 0 0 2px #d70202, inset 0 0 6px #d70202, inset 0 0 12px #d70202;
+            border-radius: 40px;
+            height:770px;
+            width: 400px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        input,select{
+            height: 30px;
+            width: 350px;
+            border-radius: 4px;
+            color: black;
+            background-color: aliceblue;
+            border:3px solid aliceblue;
+        }
+        label{
+            font-size: 25px;
+            color: aliceblue;
+        }
+        button{
+            height: 45px;
+            width: 200px;
+            color: aliceblue;
+            background-color: black;
+            border-radius: 7px;
+            font-size: 30px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        a{
+            text-decoration: none;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="color: aliceblue;font-size:50px;">Subscription page</div>
+        <br>
+        <form onsubmit="Checkval();return false">
+            <label>Username:</label>
+            <br><br>
+            <input type="text" placeholder="Enter your name" id="username">
+            <br><br>
+            <label>Password:</label>
+            <br><br>
+            <input type="password" placeholder="Enter your password" id="pass">
+            <br><br>
+            <label>Subscription:</label>
+            <br><br>
+            <select id="subs">
+                <option>Simple</option>
+                <option>Plus</option>
+                <option>Premium</option>
+            </select>
+            <br><br>
+            <label>Card no.:</label>
+            <br><br>
+            <input type="number" placeholder="Enter your card no" id="card">
+            <br><br>
+            <label>CVV:</label>
+            <br><br>
+            <input type="number" placeholder="Enter your cvv no." id="cvv">
+            <br><br>
+            <label>Expire date of card:</label>
+            <br><br>
+            <input type="text" placeholder="Enter your expire" id="expire">
+            <br><br>
+            <button type="submit">Buy Now</button>
+        </form>
+    </div>
+    <script>
+        function Checkval(){
+            var user_in=document.getElementById("username").value;
+            var pass_in=document.getElementById("pass").value;
+            var subs_in=document.getElementById("subs").value;
+            var card_in=document.getElementById("card").value;
+            var cvv_in=document.getElementById("cvv").value;
+            var exp_in=document.getElementById("expire").value;
+            var user=/[a-zA-Z]{6,15}/;
+            var pass=/[A-Z]{1,}[a-z]{1,}[0-9]{1,}/;
+            var card=/[0-9]{16}/;
+            var cvv=/[0-9]{3}/;
+            if(user_in==''||pass_in==''||subs_in==''||card_in==""||cvv_in==""||exp_in==''){
+                alert("All the feilds are mendatory!!");
+            }
+            else if(user.test(user_in)==false){
+                alert("Enter a valid username consisting of 15 char and alphabets only!!");
+            }
+            else if(pass.test(pass_in)==false||pass_in.length<8){
+                alert("Enter a valid pass consisting of 8 char and one or more digit,small and capital letters!!");
+            }
+            else if(card.test(card_in)==false){
+                alert("Enter a valid card no with no char and 16 numbers!!");
+            }
+            else if(cvv.test(cvv_in)==false){
+                alert("Enter a valid cvv no with no char and 3 numbers!!");
+            }
+            else{
+                alert("Subscription Successful!!!")
+                window.location.href='Home.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+CO+Guides&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-image: url("background_reg.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container{
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 140px;
+            margin-left:600px;
+            padding-top: 10px;
+            backdrop-filter: blur(15px);
+            border: 5px solid #000;
+            box-shadow: 0 0 1px #000, 0 0 2px #000, 0 0 6px #000, 0 0 12px #000,inset 0 0 1px #000, inset 0 0 2px #000, inset 0 0 6px #000, inset 0 0 12px #000;
+            border-radius: 40px;
+            height: 570px;
+            width: 400px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        input{
+            height: 30px;
+            width: 350px;
+            border-radius: 4px;
+            background-color: aliceblue;
+            color: #000;
+            border:3px solid aliceblue;
+        }
+        label{
+            font-size: 25px;
+            color: aliceblue;
+        }
+        button{
+            height: 45px;
+            width: 100px;
+            color: aliceblue;
+            background-color: black;
+            border-radius: 7px;
+            font-size: 30px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        a{
+            text-decoration: none;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="color: aliceblue;font-size:50px;">Registration page</div>
+        <br>
+        <form onsubmit="Checkval();return false" method="post">
+            <label>Username:</label>
+            <br><br>
+            <input type="text" placeholder="Enter your name" id="username">
+            <br><br>
+            <label>Email:</label>
+            <br><br>
+            <input type="email" placeholder="Enter your email" id="email">
+            <br><br>
+            <label>Password:</label>
+            <br><br>
+            <input type="password" placeholder="Enter your password" id="pass">
+            <br><br>
+            <label>Confirm Password:</label>
+            <br><br>
+            <input type="password" placeholder="Enter your  confirm password" id="cpass">
+            <br><br>
+            <button type="submit">Register</button>
+            <button type="submit"><a href="Netfilx_login.html">Login</a></button>
+        </form>
+    </div>
+    <script>
+         async function Checkval(){
+            var user_in=document.getElementById("username").value;
+            var pass_in=document.getElementById("pass").value;
+            var cpass_in=document.getElementById("cpass").value;
+            var email_in=document.getElementById("email").value;
+            var user=/[a-zA-Z]{6,15}/;
+            var pass=/[A-Z]{1,}[a-z]{1,}[0-9]{1,}/;
+            var cpass=/[A-Z]{1,}[a-z]{1,}[0-9]{1,}/;
+            var email=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            console.log(user_in)
+            console.log(user.test(user_in)+"1")
+            localStorage.setItem("username",user_in)
+            localStorage.setItem("password",pass_in)
+            if(user_in==''||pass_in==''||cpass_in==''||email_in==''){
+                alert("All the feilds are mendatory!!");
+            }
+            else if(user.test(user_in)==false){
+                alert("Enter a valid username consisting of 15 char and alphabets only!!");
+            }
+            else if(pass.test(pass_in)==false||pass_in.length<8){
+                alert("Enter a valid pass consisting of 8 char and one or more digit,small and capital letters!!");
+            }
+            else if(cpass.test(cpass_in)==false||cpass_in.length<8){
+                alert("Enter a valid pass consisting of 8 char and one or more digit,small and capital letters!!");
+            }
+            else if(pass_in!=cpass_in){
+                alert("Enter the same password!!")
+            }
+            else if(email.test(email_in)==false){
+                alert("Enter a valid email address!!");
+            }
+            else{
+               console.log("done")
+            }
+            const data = {
+                username: user_in,
+                email: email_in,
+                password: pass_in,
+              };
+            
+              try {
+                const response = await fetch("http://localhost:3000/register", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                });
+            
+                if (response.ok) {
+                  alert("Registration successful!");
+                  window.location.href = "Netflix_login.html";
+                } else {
+                  const errorMessage = await response.text();
+                  alert("Error: " + errorMessage);
+                }
+              } catch (error) {
+                alert("An error occurred: " + error.message);
+              }
+        }
+    </script>
+</body>
+</html>

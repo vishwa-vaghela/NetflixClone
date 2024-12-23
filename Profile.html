@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .image {
+            display: flex;
+            font-size: 40px;
+            position: relative;
+            margin-top: 150px;
+            margin-left: 300px;
+        }
+        img {
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            top: 30px;
+            right: 500px;
+        }
+        .data {
+            margin-left: 40px;
+            padding-left: 30px;
+            border-left: 3px solid black;
+            height: 300px;
+            position: absolute;
+            top: 50px;
+            left: 300px;
+            width: 400px;
+        }
+        button {
+            background-color: black;
+            color: aliceblue;
+            height: 50px;
+            width: 150px;
+            font-size: 15px;
+        }
+        a {
+            text-decoration: none;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image">
+            <div class="data" id="profile-data">
+                <!-- Placeholder for server data -->
+                <p>Loading profile...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch and display the profile data from the server
+        async function fetchProfileData() {
+            const username = localStorage.getItem("username");
+            const profileDataDiv = document.getElementById('profile-data');
+    
+            try {
+                const response = await fetch(`http://localhost:3000/getprofile?username=${username}`);
+                if (!response.ok) {
+                    throw new Error('Profile not found');
+                }
+                const data = await response.json();
+    
+                profileDataDiv.innerHTML = `
+                    <img id="profile-pic" src="${data.profilepic}" alt="Profile Picture">
+                    <p id="name">Username:</p>
+                    <p id="user">${data.username}</p>
+                    <button id="change" onclick="Changedata()">Change Data</button>
+                    <button><a href="Home.html">Back to Home</a></button>
+                `;
+            } catch (error) {
+                console.error('Error fetching profile data:', error);
+                profileDataDiv.innerHTML = `<p>Error fetching profile data.</p>`;
+            }
+        }
+        function Changedata() {
+            window.location.href = "Profile_form.html";
+        }
+        fetchProfileData();
+    </script>
+</body>
+</html>

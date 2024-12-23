@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #play{
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="play" style="color: black;">
+
+        </div>
+    </div>
+    <script>
+        var play=document.getElementById("play");
+        var url=localStorage.getItem("url");
+        play.innerHTML=`<iframe 
+                        width="100%" 
+                        height="100%" 
+                        src=${url}?autoplay=1&mute=1
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-image: url(background_reg.jpg);
+    }
+    .container{
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        margin-top: 250px;
+    }
+    form{
+        margin-left: 550px;
+        border: 8px solid black;
+        border-radius: 15px;
+        width: 400px;
+        height: 320px;
+        padding-top: 10px;
+        font-size: 18px;
+        backdrop-filter: blur(20px);
+        color: aliceblue;
+    }
+    button{
+        background-color: black;
+        color: aliceblue;
+        height: 40px;
+        width: 100px;
+        font-size: 17px;
+    }
+    p{
+        font-size: 25px;
+    }
+    input{color: black;}
+</style>
+<body>
+    <div class="container">
+        <form method="post">
+        <p>Profile Details</p>
+        <label>Username:</label>
+        <br><br>
+        <input placeholder="Enter a new/old username" type="text" id="username">
+        <br><br>
+        <label>Profile pic:</label>
+        <br><br>
+        <input  type="file" style="padding-left: 70px;" id="profile">
+        <br><br>
+        <button onclick="Senduserdata()" >Submit</button>
+    </form>
+</div>
+</body>
+<script>
+    async function Senduserdata(){
+        var old_user=localStorage.getItem("username");
+        var username=document.getElementById("username").value;
+        var profile=document.getElementById("profile").value;
+        const response = await fetch("http://localhost:3000/newdata", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, profile,old_user }),
+        });
+    
+        const message = await response.text();
+    
+        if (response.ok) {
+            window.location.href = "Profile.html";
+        } else {
+            alert(message);
+        }
+    }
+</script>
+</html>

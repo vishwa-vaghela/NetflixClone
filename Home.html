@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+CO+Guides&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            position: relative;
+        }
+        nav{
+            position: absolute;
+            z-index: 3;
+            width: 100%;
+            backdrop-filter: blur(5px);
+        }
+        ul{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        li{
+            display: inline;
+            list-style-type: none;
+            padding: 10px;
+            font-size: 25px;
+            font-family: "Dancing Script", serif;
+            color: aliceblue;
+        }
+        a{
+            text-decoration: none;
+            color: aliceblue;
+        }
+        #back_v{
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            object-fit: cover;
+        }
+        #back_d{
+            position: absolute;
+            background-color: black;
+            opacity: 0.5;
+            color: red;
+            height: 100vh;
+            width: 100%;
+            top: 0px;
+            font-size: 200px;
+            font-weight: bolder;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .container2{
+            margin: 0;
+            background-color: black;
+            width: 100%;
+        }
+        p{
+            color: aliceblue;
+            padding-left: 20px;
+            margin-top: 0px;
+            padding-top: 20px;
+            font-size: 50px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .slider , .slider2{
+            position: relative;
+            height: 500px;
+            width: 1300px;
+            border: 15px solid white;
+            left: 100px;
+            display: flex;
+            overflow: hidden;
+        }
+        .inner_data {
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease;
+            transform: translateX(100%);
+        }
+        .inner_data:first-child {
+            transform: translateX(0);
+        }
+        .details{
+            position: absolute;
+            left: 800px;
+            height: 400px;
+            width: 400px;
+            top: 90px;
+            text-align: center;
+        }
+        .details2{
+            position: absolute;
+            right: 800px;
+            height: 400px;
+            width: 400px;
+            top: 90px;
+            text-align: center;
+        }
+        .details p, .details2 p{
+            font-size: 40px;
+        }
+        .details button, .details2 button{
+            height: 50px;
+            width: 150px;
+            background-color: black;
+            color: aliceblue;
+            border: 2px solid aliceblue;
+            font-size: large;
+            border-radius: 10px;            
+        }
+        .details button:hover, .details2 button:hover{
+            background-color: rgb(134, 1, 1);
+            color: black;
+            border: 2px solid rgb(134, 1, 1);
+            transition: all 0.5s ease;
+        }
+        .navbtns #b1:hover,.navbtns #b2:hover{
+            background-color: rgb(134, 1, 1);
+            color: black;
+            border: 2px solid rgb(134, 1, 1);
+            transition: all 0.5s ease;
+        }
+        .slider iframe{
+            pointer-events: none;
+            position: absolute;
+            height: 400px;
+            width: 700px;
+            top: 20px;
+            left: 20px;
+        }
+        .slider2 iframe{
+            pointer-events: none;
+            position: absolute;
+            height: 400px;
+            width: 700px;
+            top: 20px;
+            right: 20px;
+        }
+        .navbtns #b1{
+            height: 50px;
+            width: 60px;
+            background-color: black;
+            position: absolute;
+            border-radius: 20px;
+            color: aliceblue;
+            top: 430px;
+            left: 600px;
+            border: 2px solid aliceblue;
+        }
+        .navbtns #b2{
+            height: 50px;
+            width: 60px;
+            background-color: black;
+            position: absolute;
+            border-radius: 20px;
+            color: aliceblue;
+            top: 430px;
+            left: 700px;
+            border: 2px solid aliceblue;
+        }
+        #search{
+            height: 25px;
+        }
+        .logo {
+            margin-left: auto;
+            font-size: 30px;
+            font-weight: bold;
+            padding-right: 900px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li class="logo">LOGO</li>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Subscription.html" >Subsription</a></li>
+                <li><input type="text" placeholder="Search..." id="search"></li>
+                <li><a href="Profile.html">Profile</a></li>
+            </ul>
+        </nav>
+        <video id="back_v" autoplay loop muted>
+            <source src="bg_video.mp4" type="video/mp4">
+        </video>
+        <div id="back_d">NETFLIX</div>
+        <div class="container2">
+            <p>Top 5 Picks ></p>
+            <div class="slider">
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/KEfeMPGj-Dw?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details">
+                        <p>CTRL</p>
+                        <p>Thrill | Dark | Cyberpunk</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/KEfeMPGj-Dw`)">Play Now</button>
+                    </div>
+                </div>                
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/iM150ZWovZM?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details">
+                        <p>Damsel</p>
+                        <p>Rousing | Imaginative | Fantasy</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/iM150ZWovZM`)">Play Now</button>
+                    </div>
+                </div>
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/OhcOHkgTrQQ?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details">
+                        <p>Carry-on</p>
+                        <p>Thrill | Suspense | Exciting</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/OhcOHkgTrQQ`)">Play Now</button>
+                    </div>
+                </div>
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/jGQiq1ZuCW8?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details">
+                        <p>Spellbound</p>
+                        <p>Magic | Music | Imagination</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/jGQiq1ZuCW8`)">Play Now</button>
+                    </div>
+                </div>
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/5Dmr5rktfGY?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details">
+                        <p>IC 814</p>
+                        <p>Fear | Thrill | Suspense</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/5Dmr5rktfGY`)">Play Now</button>
+                    </div>
+                </div>
+            <div class="navbtns">
+                <button id="b1" onclick="prevbtn()"><</button>
+                <button id="b2" onclick="nextbtn()">></button>
+            </div>
+            </div>
+            <br><br>
+            <p>Your next watch ></p>
+            <div class="slider2">
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/Di310WS8zLk?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details2">
+                        <p>Wednesday</p>
+                        <p>Thrill | Dark | Cyberpunk</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/Di310WS8zLk`)">Play Now</button>
+                    </div>
+                </div>                
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/qkaNg-0RIsM?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details2">
+                        <p>XO Kitty</p>
+                        <p>Rousing | Imaginative | Fantasy</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/qkaNg-0RIsM`)">Play Now</button>
+                    </div>
+                </div>
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/qyRn3rPRw8w?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details2">
+                        <p>Baby John</p>
+                        <p>Thrill | Suspense | Exciting</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/qyRn3rPRw8w`)">Play Now</button>
+                    </div>
+                </div>
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/IN5TD4VRcSM?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details2">
+                        <p>All of us are dead</p>
+                        <p>Zombies | Music | Imagination</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/IN5TD4VRcSM`)">Play Now</button>
+                    </div>
+                </div>
+                <div class="inner_data">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/5Dmr5rktfGY?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=0&rel=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="details2">
+                        <p>IC 814</p>
+                        <p>Fear | Thrill | Suspense</p>
+                        <button onclick="Playvideo(`https://www.youtube.com/embed/5Dmr5rktfGY`)">Play Now</button>
+                    </div>
+                </div>
+            <div class="navbtns">
+                <button id="b1" onclick="prevbtn()"><</button>
+                <button id="b2" onclick="nextbtn()">></button>
+            </div>
+            </div>
+            <br><br><br><br>
+        </div>
+    </div>  
+    <script>
+        var slides=document.querySelectorAll(".inner_data");
+        var count=0;
+        function slideto() {
+            slides.forEach((slide, index) => {
+                slide.style.transform = `translateX(-${count * 100}%)`; // Apply translation on inner_data and not the slider pls remember
+            });
+        }
+        var nextbtn = () => {
+            if (count < slides.length - 1) { // Prevent moving beyond the last slide
+                count++;
+                slideto();
+            }
+        };
+        
+        var prevbtn = () => {
+            if (count > 0) { // Prevent moving before the first slide
+                count--;
+                slideto();
+            }
+        };
+        function Playvideo(url){
+            localStorage.setItem("url",url);
+            window.location.href="Playvideo.html";
+        }
+        document.getElementById("search").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                var search = document.getElementById("search").value;
+                localStorage.setItem("search", search);
+                window.location.href='Search.html';
+            }
+        });
+    </script>  
+</body>
+</html>

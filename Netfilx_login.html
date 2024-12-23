@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+CO+Guides&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-image: url("background_reg.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container{
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 250px;
+            margin-left:600px;
+            padding-top: 10px;
+            backdrop-filter: blur(15px);
+            border: 5px solid #000;
+            box-shadow: 0 0 1px #000, 0 0 2px #000, 0 0 6px #000, 0 0 12px #000,inset 0 0 1px #000, inset 0 0 2px #000, inset 0 0 6px #000, inset 0 0 12px #000;
+            border-radius: 40px;
+            height: 360px;
+            width: 350px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        input{
+            height: 30px;
+            width: 300px;
+            border-radius: 4px;
+            background-color: aliceblue;
+            color: #000;
+            border:3px solid aliceblue;
+        }
+        button{
+            height: 45px;
+            width: 100px;
+            color: aliceblue;
+            background-color: black;
+            border-radius: 7px;
+            font-size: 30px;
+            font-family: "Dancing Script", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        label{
+            font-size: 27px;
+            color: aliceblue;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="color: aliceblue;font-size:50px;">Login page</div>
+        <br>
+        <form onsubmit="Checkval();return false"  method="post">
+            <label>Username:</label>
+            <br><br>
+            <input type="text" placeholder="Enter your name" id="username">
+            <br><br>
+            <label>Password:</label>
+            <br><br>
+            <input type="password" placeholder="Enter your password" id="pass">
+            <br><br>
+            <button type="submit">Login</button>    
+        </form>
+    </div>
+    <script>
+        async function Checkval(){
+            var user_in=document.getElementById("username").value;
+            var pass_in=document.getElementById("pass").value;
+            var user=/[a-zA-Z]{6,15}/;
+            var pass=/[A-Z]{1,}[a-z]{1,}[0-9]{1,}/;
+            if(user_in==''||pass_in==''){
+                alert("All the feilds are mendatory!!");
+            }
+            else if(user.test(user_in)==false){
+                alert("Enter a valid username consisting of 15 char and alphabets only!!");
+            }
+            else if(pass.test(pass_in)==false||pass_in.length<8){
+                alert("Enter a valid pass consisting of 8 char and one or more digit,small and capital letters!!");
+            }
+            else{
+                window.location.href="Select_user.html"
+            }
+            const response = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+        
+            const message = await response.text();
+        
+            if (response.ok) {
+                alert("Login successful!");
+                window.location.href = "Select_user.html";
+            } else {
+                alert(message);
+            }
+        }
+    </script>
+</body>
+</html>
