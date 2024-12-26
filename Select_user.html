@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+CO+Guides&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         body{
             margin: 0;
@@ -28,35 +28,57 @@
             box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 6px #fff, 0 0 12px #fff,inset 0 0 1px #fff, inset 0 0 2px #fff, inset 0 0 6px #fff, inset 0 0 12px #fff;
             height: 450px;
             width: 90%;
-            font-family: "Dancing Script", serif;
+            font-family: "Noto Script", serif;
             font-optical-sizing: auto;
             font-weight: 400;
             font-style: normal;
         }
-        .container div{
+        .container .div1{
             display:inline-block;
             height: 250px;
             width: 250px;
         }
-        .container div p{
-            margin: 0;
+        .container .div1 p{
+            margin-top: 10px;
+            color: aliceblue;
+            font-size: 40px;
+            font-family: "Noto Script", serif;
+        }
+        img{
+            height: 200px;
+            width: 200px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 style="color: aliceblue;font-size:50px;">Who's Watching?</h1>
-        <button onclick="SendProflie('User1')"><div><img src="Pro1.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button>
+        <div id="user"></div>
+        <!-- <button onclick="SendProflie('User1')"><div><img src="Pro1.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button>
         <button onclick="SendProflie('User2')"><div><img src="Pro2.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button>
         <button onclick="SendProflie('User3')"><div><img src="Pro3.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button>
         <button onclick="SendProflie('User4')"><div><img src="Pro4.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button>
-        <button onclick="SendProflie('User5')"><div><img src="Pro5.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button>
+        <button onclick="SendProflie('User5')"><div><img src="Pro5.jpg"><p style="color: aliceblue;font-size:40px;">User</p></div></button> -->
     </div>
 </body>
 <script>
+    async function Getuser(){
+        try{
+            const result=await fetch("http://localhost:3000/getuserdata");
+            const data=await result.json();
+            console.log(data);
+            data.forEach(element => {
+               document.getElementById("user").innerHTML+=`<button onclick="SendProflie('${element.username}')"><div class="div1"><img src="/uploads/${element.profilepic}"><p>${element.username}</p></div></button>`; 
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
     function SendProflie(username){
         localStorage.setItem("username",username);
         window.location.href="Home.html";
     }
+    window.onload=Getuser;
 </script>
 </html>

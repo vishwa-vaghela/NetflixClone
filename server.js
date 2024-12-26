@@ -3,30 +3,37 @@ const bodyParser = require("body-parser");
 const { Pool } = require("pg");
 const cors = require("cors");
 const path=require("path");
+const multer = require("multer");
 
 const app = express();
 const port = 3000;
-
-// Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname)));
-
-// PostgreSQL connection
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const pool = new Pool({
-  user: "postgres",         // Replace with your PostgreSQL username
+  user: "postgres",  
   host: "localhost",
-  database: "postgres",    // Replace with your database name
-  password: "Vishwa31",    // Replace with your PostgreSQL password
+  database: "postgres",    
+  password: "Vishwa31",   
   port: 5432,
 });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+const upload = multer({ storage });
+
 app.get("/",(req,res)=>{
-    res.sendFile(path.join(__dirname, 'Netflix_reg.html'));
-    console.log(path.join(__dirname, 'Netflix_reg.html'))
+    res.sendFile(path.join(__dirname, 'Netfilx_login.html'));
+    console.log(path.join(__dirname, 'Netfilx_login.html'))
     console.log("File found");
 })
-
-// API endpoint to handle registration
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -74,15 +81,16 @@ app.get("/Profile_form.html",(req,res)=>{
 app.post("/Profile_form.html", (req, res) => {
   res.redirect("/Profile.html");
 });
-app.post("/newdata",async (req,res)=>{
-  const { username, profile,olduser } = req.body;
-  
+app.post("/newdata", upload.single('profile'),async (req,res)=>{ 
+  const { username, old_user } = req.body;
+  const profile = req.file ? req.file.filename : null;
+  console.log(profile);
     try {
       const query = `
-        UPDATE userdata SET username=$2,profilepic=$1 WHERE username=$3 RETURNING *;
+        UPDATE userdata SET username=$1,profilepic=$2 WHERE username=$3 RETURNING *;
       `;
-      const result = await pool.query(query, [username, profile,olduser]);
-  
+      const result = await pool.query(query, [username, profile,old_user]);
+      console.log(result.rows);
       if (result.rows.length === 0) {
         return res.status(401).send("Invalid username or no image selected.");
       }
@@ -93,9 +101,14 @@ app.post("/newdata",async (req,res)=>{
     }
 })
 app.get("/getprofile", async (req, res) => {
+  const { username } = req.query;
+  console.log(username);
+  if (!username) {
+    return res.status(400).send('Username is required');
+  }
   try {
-      const query = `SELECT username, profilepic FROM userdata WHERE username = $1`;
-      const result = await pool.query(query, [req.query.username]);
+    const result = await pool.query(`SELECT username, profilepic FROM userdata WHERE username = $1`, [username]);
+    console.log(result.rows);
 
       if (result.rows.length === 0) {
           return res.status(404).send("Profile not found.");
@@ -105,6 +118,19 @@ app.get("/getprofile", async (req, res) => {
   } catch (error) {
       console.error("Error fetching profile data:", error);
       res.status(500).send("Error occurred while fetching profile data.");
+  }
+});
+app.get("/getuserdata",async (req,res)=>{
+  try {
+    const query = `
+      SELECT * FROM userdata
+    `;
+    const result = await pool.query(query);
+    console.log(result.rows);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).send("Error occurred while fetching user data.");
   }
 });
 app.get("/Search.html",(req,res)=>{
@@ -117,17 +143,18 @@ app.get("/search",async (req,res)=>{
     `;
     const result = await pool.query(query);
 
+
     if (result.rows.length === 0) {
       return res.status(401).send("Invalid username or password.");
     }
-
+    console.log(result.rows);
     res.status(200).json(result.rows)
   } catch (error) {
     console.error("Error during fetching:", error);
     res.status(500).send("Error occurred during fetching.");
   }
 })
-// Start the server
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

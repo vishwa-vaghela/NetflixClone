@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <style>
     body{
         background-image: url(background_reg.jpg);
+        font-family: "Noto Serif", serif;
     }
     .container{
         justify-content: center;
@@ -20,7 +23,7 @@
         border: 8px solid black;
         border-radius: 15px;
         width: 400px;
-        height: 320px;
+        height: 340px;
         padding-top: 10px;
         font-size: 18px;
         backdrop-filter: blur(20px);
@@ -38,9 +41,10 @@
     }
     input{color: black;}
 </style>
+</head>
 <body>
     <div class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data" onsubmit="event.preventDefault(); Senduserdata();">
         <p>Profile Details</p>
         <label>Username:</label>
         <br><br>
@@ -50,7 +54,7 @@
         <br><br>
         <input  type="file" style="padding-left: 70px;" id="profile">
         <br><br>
-        <button onclick="Senduserdata()" >Submit</button>
+        <button type="submit" >Submit</button>
     </form>
 </div>
 </body>
@@ -58,16 +62,21 @@
     async function Senduserdata(){
         var old_user=localStorage.getItem("username");
         var username=document.getElementById("username").value;
-        var profile=document.getElementById("profile").value;
+        console.log(username + "new");
+        var profile = document.getElementById("profile").files[0];
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("profile", profile);
+        formData.append("old_user", old_user);
         const response = await fetch("http://localhost:3000/newdata", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, profile,old_user }),
+            body: formData,
         });
     
         const message = await response.text();
     
         if (response.ok) {
+            localStorage.setItem("username", username);
             window.location.href = "Profile.html";
         } else {
             alert(message);
